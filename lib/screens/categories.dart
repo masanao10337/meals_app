@@ -5,6 +5,7 @@ import 'package:meals/widgets/category_grid_items.dart';
 
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
