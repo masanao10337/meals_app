@@ -1,4 +1,5 @@
 enum Complexity { simple, challenging, hard }
+
 enum Affordability { affordable, pricey, luxurious }
 
 class Meal {
@@ -31,4 +32,11 @@ class Meal {
   final bool isLactoseFree;
   final bool isVegan;
   final bool isVegetarian;
+
+  String get affordabilityText =>
+      affordability.name[0].toUpperCase() + affordability.name.substring(1);
+  String get complexityText =>
+      complexity.name[0].toUpperCase() + complexity.name.substring(1);
+
+  String get durationMin => '$duration min';
 }
