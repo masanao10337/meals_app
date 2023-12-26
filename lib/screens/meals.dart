@@ -18,12 +18,12 @@ class MealsScreen extends StatefulWidget {
 }
 
 class _MealsScreenState extends State<MealsScreen> {
-  late Widget mainContent;
+  late Widget _mainContent;
 
   @override
   void initState() {
     super.initState();
-    mainContent = (widget.meals.isEmpty)
+    _mainContent = (widget.meals.isEmpty)
         ? const NotFound()
         : MealsList(meals: widget.meals);
   }
@@ -34,7 +34,7 @@ class _MealsScreenState extends State<MealsScreen> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: mainContent,
+      body: _mainContent,
     );
   }
 }
