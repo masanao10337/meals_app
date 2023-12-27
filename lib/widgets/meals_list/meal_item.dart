@@ -5,9 +5,11 @@ import 'package:transparent_image/transparent_image.dart';
 
 class MealItem extends StatelessWidget {
   final Meal meal;
+  final void Function(BuildContext context, Meal meal) selectMeal;
 
   const MealItem({
     required this.meal,
+    required this.selectMeal,
     super.key,
   });
 
@@ -21,7 +23,8 @@ class MealItem extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       elevation: 2,
       child: InkWell(
-        onTap: () {},
+        onTap: () => selectMeal(context, meal),
+        splashColor: Theme.of(context).primaryColorDark,
         child: Stack(
           children: <Widget>[
             FadeInImage(
