@@ -4,8 +4,11 @@ import 'package:meals/widgets/meal_detail.dart/meal_detail.dart';
 
 class MealDetailsScreen extends StatelessWidget {
   final Meal meal;
+  final void Function(Meal meal) toggleFavorite;
+
   const MealDetailsScreen({
     required this.meal,
+    required this.toggleFavorite,
     super.key,
   });
 
@@ -15,6 +18,12 @@ class MealDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(meal.title),
+        actions: [
+          IconButton(
+            onPressed: () => toggleFavorite(meal),
+            icon: Icon(Icons.star),
+          )
+        ],
       ),
       body: MealDetail(meal: meal),
     );

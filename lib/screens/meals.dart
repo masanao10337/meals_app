@@ -7,11 +7,13 @@ import 'package:meals/widgets/meals_list/not_found.dart';
 class MealsScreen extends StatefulWidget {
   final String? title;
   final List<Meal> meals;
+  final void Function(Meal meal) toggleFavorite;
 
   const MealsScreen({
     super.key,
     this.title,
     required this.meals,
+    required this.toggleFavorite,
   });
 
   @override
@@ -25,6 +27,7 @@ class _MealsScreenState extends State<MealsScreen> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => MealDetailsScreen(
+          toggleFavorite: widget.toggleFavorite,
           meal: meal,
         ),
       ),
@@ -44,7 +47,7 @@ class _MealsScreenState extends State<MealsScreen> {
 
   @override
   Widget build(BuildContext context) {
-  // NOTE: tab navigation実装のため
+    // NOTE: tab navigation実装のため
     if (widget.title == null) return _mainContent;
 
     return Scaffold(

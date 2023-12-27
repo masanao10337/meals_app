@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meals/models/meal.dart';
 import 'package:meals/screens/categories.dart';
 import 'package:meals/screens/meals.dart';
 
@@ -19,18 +20,32 @@ class TabsScreen extends StatefulWidget {
 
 class _TabsScreenState extends State<TabsScreen> {
   int _selectedPageIndex = 0;
-  final List<TabItem> _tabs = [
-    const TabItem(
-      page: CategoriesScreen(),
-      title: 'Categories',
-      icon: Icon(Icons.set_meal),
-    ),
-    const TabItem(
-      page: MealsScreen(meals: []),
-      title: 'Favorites',
-      icon: Icon(Icons.star),
-    ),
-  ];
+  List<TabItem> get _tabs => [
+        TabItem(
+          page: CategoriesScreen(
+            toggleFavorite: _toggleMealFavoritesStatus,
+          ),
+          title: 'Categories',
+          icon: Icon(Icons.set_meal),
+        ),
+        TabItem(
+          page: MealsScreen(
+            toggleFavorite: _toggleMealFavoritesStatus,
+            meals: [],
+          ),
+          title: 'Favorites',
+          icon: const Icon(Icons.star),
+        ),
+      ];
+
+  //NOTE: 複数のwidgetsにまたがる状態管理
+  final List<Meal> _favoriteMeals = [];
+
+  void _toggleMealFavoritesStatus(Meal meal) {
+    _favoriteMeals.contains(meal)
+        ? _favoriteMeals.remove(meal)
+        : _favoriteMeals.add(meal);
+  }
 
   void _selectPage(int index) {
     setState(() {
