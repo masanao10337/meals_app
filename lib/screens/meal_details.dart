@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meals/models/meal.dart';
+import 'package:meals/widgets/meal_detail.dart/meal_detail.dart';
 
 class MealDetailsScreen extends StatelessWidget {
   final Meal meal;
@@ -15,12 +16,7 @@ class MealDetailsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(meal.title),
       ),
-      body: Image.network(
-        meal.imageUrl,
-        height: 300,
-        width: double.infinity,
-        fit: BoxFit.cover,
-      ),
+      body: MealDetail(meal: meal),
     );
   }
 }
