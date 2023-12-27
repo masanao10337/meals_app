@@ -4,15 +4,13 @@ import 'package:meals/screens/meal_details.dart';
 import 'package:meals/widgets/meals_list/meals_list.dart';
 import 'package:meals/widgets/meals_list/not_found.dart';
 
-//TODO: onselectMealでのページの更新から。
-
 class MealsScreen extends StatefulWidget {
-  final String title;
+  final String? title;
   final List<Meal> meals;
 
   const MealsScreen({
     super.key,
-    required this.title,
+    this.title,
     required this.meals,
   });
 
@@ -46,9 +44,12 @@ class _MealsScreenState extends State<MealsScreen> {
 
   @override
   Widget build(BuildContext context) {
+  // NOTE: tab navigation実装のため
+    if (widget.title == null) return _mainContent;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.title!),
       ),
       body: _mainContent,
     );
