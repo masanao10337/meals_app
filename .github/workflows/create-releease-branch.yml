@@ -1,5 +1,6 @@
 name: set release branch
 run-name: set release branch for ${{ github.event.inputs.version }}
+
 on:
   workflow_dispatch:
     inputs:
@@ -7,6 +8,9 @@ on:
         description: 'input Release version (e.g. 1.0.0)'
         required: true
         type: string
+
+permissions:
+  contents: write
 
 jobs:
   create_release_branch:
@@ -27,12 +31,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         ref: development
-
-    - name: Update version in pubspec.yaml
-      if:
-      run: |
-        sed -i -e "s/^version:.*/version: ${{ env.RELEASE_VERSION }}/" pubspec.yaml
-
+        
     - name: Config git
       run: |
         git remote set-url origin https://github-actions:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}
@@ -42,6 +41,17 @@ jobs:
     - name: Create release branch
       run: |
         git checkout -b release/${{ env.RELEASE_VERSION }}
+
+    - name: Update version in pubspec.yaml
+      # if:
+      run: |
+        sed -i -e "s/^version:.*/version: ${{ env.RELEASE_VERSION }}/" pubspec.yaml
+
+    - name: Commit Change
+      run: |
         git add pubspec.yaml
         git commit -m "Increment version to ${{ env.RELEASE_VERSION }}"
+
+    - name: Push release branch
+      run: |
         git push origin release/${{ env.RELEASE_VERSION }}
