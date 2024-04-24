@@ -1,5 +1,5 @@
 name: set release branch
-run-name: set release branch for ${{ github.event.inputs.version }} by ${{ github.actor }} on ${{ github.event.created_at }}
+run-name: set release branch for ${{ github.event.inputs.version }} by ${{ github.actor }}
 
 on:
   workflow_dispatch:
@@ -16,7 +16,7 @@ jobs:
     steps:
     - name: Validate version format
       run: |
-        if ! echo "${{ github.event.inputs.version }}" | grep -qE '^\d+\.\d+\.\d+$'; then
+        if ! echo "${{ github.event.inputs.version }}" | grep -qE "^\d+\.\d+\.\d+$"; then
           echo "Invalid version format. Please use the format: major.minor.patch (e.g., 1.0.0)"
           exit 1
         fi
