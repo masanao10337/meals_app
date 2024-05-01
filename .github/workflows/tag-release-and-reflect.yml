@@ -1,0 +1,41 @@
+name: create tag and refelect diff to development
+run-name: reate tag and refelect diff to development
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  release_and_merge:
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'release/')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Extract Release Version
+        id: extract_version
+        run: |
+          RELEASE_VERSION=$(echo "${{ github.head_ref }}" | sed 's/^release\///')
+          echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create Git Tag
+        run: |
+          git tag ${{ steps.extract_version.outputs.RELEASE_VERSION }}
+          git push origin ${{ steps.extract_version.outputs.RELEASE_VERSION }}
+
+      - name: Merge Release Branch to Development
+        run: |
+          git fetch origin development
+          git checkout development
+          git merge --no-ff ${{ github.head_ref }}
+          git push origin development
+
+      - name: Delete Release Branch
+        run: |
+          git push origin --delete ${{ github.head_ref }}
