@@ -1,6 +1,5 @@
 name: Create Release and Reflect Diff to Development
 
-
 on:
   pull_request:
     types: [closed]
@@ -30,7 +29,7 @@ jobs:
       - name: Merge Release Branch to Development
         run: |
           git fetch origin development
-          git checkout -b development
+          git checkout -b development origin/development
           git merge --no-ff release/$RELEASE_VERSION
           git push origin development
 
