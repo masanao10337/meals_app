@@ -30,9 +30,9 @@ jobs:
 
       - name: Merge Release Branch to Development
         run: |
-          git fetch origin development
+          git fetch origin development release/$RELEASE_VERSION
           git checkout -b development origin/development
-          git merge --no-ff release/$RELEASE_VERSION
+          git merge --no-ff origin/release/$RELEASE_VERSION
           git push origin development
 
       - name: Create GitHub Release
