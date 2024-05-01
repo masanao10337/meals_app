@@ -11,6 +11,8 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
+  repository-projects: write
 
 jobs:
   create_release_branch:
