@@ -62,3 +62,9 @@ jobs:
       - name: Push release branch
         run: |
           git push origin release/${{ env.RELEASE_VERSION }}
+
+      - name: Create PR to master and devlopment branch
+        run: |
+          gh pr create --base development --head release/${{ env.RELEASE_VERSION }} --title "Release ${{ env.RELEASE_VERSION }}" --body "Release ${{ env.RELEASE_VERSION }}" &&
+          gh pr create --base master --head release/${{ env.RELEASE_VERSION }} --title "Release ${{ env.RELEASE_VERSION }}" --body "Release ${{ env.RELEASE_VERSION }}"
+
