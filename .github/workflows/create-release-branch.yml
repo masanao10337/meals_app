@@ -1,5 +1,5 @@
-name: set release branch
-run-name: set release branch for ${{ github.event.inputs.version }}
+name: Set Release Branch
+run-name: Set Release Branch for ${{ github.event.inputs.version }}
 
 on:
   workflow_dispatch:
@@ -11,6 +11,8 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
+  repository-projects: write
 
 jobs:
   create_release_branch:
@@ -62,3 +64,9 @@ jobs:
       - name: Push release branch
         run: |
           git push origin release/${{ env.RELEASE_VERSION }}
+
+      - name: Create PR to master and devlopment branch
+        run: |
+          gh pr create --base development --head release/${{ env.RELEASE_VERSION }} --title "Release ${{ env.RELEASE_VERSION }} to development" --body "Release ${{ env.RELEASE_VERSION }}" &&
+          gh pr create --base main --head release/${{ env.RELEASE_VERSION }} --title "Release ${{ env.RELEASE_VERSION }} to main" --body "Release ${{ env.RELEASE_VERSION }}"
+
