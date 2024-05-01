@@ -69,3 +69,4 @@ jobs:
         run: |
           gh pr create --base development --head release/${{ env.RELEASE_VERSION }} --title "Release ${{ env.RELEASE_VERSION }} to development" --body "Release ${{ env.RELEASE_VERSION }}" &&
           gh pr create --base main --head release/${{ env.RELEASE_VERSION }} --title "Release ${{ env.RELEASE_VERSION }} to main" --body "Release ${{ env.RELEASE_VERSION }}"
+
