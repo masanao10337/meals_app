@@ -1,6 +1,7 @@
 name: meals
 description: A new Flutter project.
 publish_to: 'none'
+
 version: 1.4.8
 
 environment:
