@@ -1,5 +1,5 @@
-name: set release branch
-run-name: set release branch for ${{ github.event.inputs.version }}
+name: Set Release Branch
+run-name: Set Release Branch for ${{ github.event.inputs.version }}
 
 on:
   workflow_dispatch:
